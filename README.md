@@ -1,6 +1,8 @@
 # I really dig Oh My Zsh
 The combination of z.sh for quick and easy directory changes and pretty visuals that let you know what directory and branch you are on is tops. I'm a goddamn spacey airhead so this type of thing makes CLI things much more bearable.
 
+This is a repo of my `~/.oh-my-zsh/custom` directory, I'm always tinkering with.
+
 ![Screenshot of my terminal](/img/omzscreen.png?raw=true)
 
 ## Here are some of my set-up and installation notes
@@ -9,7 +11,13 @@ The combination of z.sh for quick and easy directory changes and pretty visuals 
 
 `sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
 
-**Configure ~/.zshrc config file**
+**Clone this repo into your `~/.oh-my-zsh/custom` folder**
+
+`cd ~/.oh-my-zsh/custom`
+
+`git clone https://github.com/mikowl/ohmyzsh-custom.git .`
+
+**Configure your ~/.zshrc file**
 
 I keep an updated version of my .zshrc config [here](https://gist.github.com/mikowl/88b674937f265d1b372083f2fbf16d22)
 
