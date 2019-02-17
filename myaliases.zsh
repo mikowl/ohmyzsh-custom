@@ -17,8 +17,8 @@ alias p="cd ~/Projects"
 alias omz="cd ~/.oh-my-zsh"
 alias omzc="cd ~/.oh-my-zsh/custom"
 # Quick edit to my aliases and zshrc config
-alias zshrc="$EDITOR ~/.zshrc"
-alias aliases="$EDITOR ~/.oh-my-zsh/custom/myaliases.zsh"
+alias zshrc=$EDITOR "~/.zshrc"
+alias aliases=$EDITOR "~/.oh-my-zsh/custom/myaliases.zsh"
 
 # Git 
 alias gs='git status'
