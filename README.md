@@ -13,13 +13,11 @@ This is a repo of my `~/.oh-my-zsh/custom` directory, I'm always tinkering with.
 
 **Clone this repo into your `~/.oh-my-zsh/custom` folder**
 
-`cd ~/.oh-my-zsh/custom`
-
-`git clone https://github.com/mikowl/ohmyzsh-custom.git .`
+`git clone https://github.com/mikowl/ohmyzsh-custom.git ~/.oh-my-zsh/custom`
 
 **Configure your ~/.zshrc file**
 
-I keep an updated version of my .zshrc config [here](https://gist.github.com/mikowl/88b674937f265d1b372083f2fbf16d22)
+I keep an updated version of my .zshrc config [here](https://gist.github.com/mikowl/88b674937f265d1b372083f2fbf16d22) or scroll down to copy and paste my config.
 
 ## Things that are needed in order for the above config to work properly
 
@@ -50,3 +48,79 @@ This font improves the symbols that are displayed in the terminal, particularly 
 
 Aliases that I need that aren't included in plug-ins are put into `custom/myaliases.zsh`.
 
+## .zshrc config
+
+```
+#Mikowl's .zshrc config v1.6
+printf  '%s%*s%s' "$(tput setaf 175)" $(tput cols) "🗓  $(date '+%A, %B, %d') "
+
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/"$(whoami)"/.oh-my-zsh"
+
+# zsh completion (brew install zsh-completions)
+fpath=(/usr/local/share/zsh-completions $fpath)
+
+# Powerlevel9k Theme set-up
+
+ZSH_THEME="powerlevel9k/powerlevel9k"
+POWERLEVEL9K_MODE='awesome-fontconfig'
+
+# Stuff on the left
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_DIR_HOME_BACKGROUND='000'
+POWERLEVEL9K_DIR_HOME_FOREGROUND='219'
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND='000'
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND='004'
+POWERLEVEL9K_DIR_ETC_BACKGROUND='123'
+POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='123'
+POWERLEVEL9K_VCS_BACKGROUND='035'
+POWERLEVEL9K_VCS_FOREGROUND='red'
+
+# Stuff on the right
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs time)
+POWERLEVEL9K_STATUS_OK_BACKGROUND='000'
+POWERLEVEL9K_STATUS_OK_FOREGROUND='078'
+POWERLEVEL9K_STATUS_ERROR_BACKGROUND='000'
+POWERLEVEL9K_STATUS_ERROR_FOREGROUND='203'
+POWERLEVEL9K_TIME_BACKGROUND='000'
+POWERLEVEL9K_TIME_FOREGROUND='143'
+POWERLEVEL9K_DATE_BACKGROUND='000'
+POWERLEVEL9K_DATE_FOREGROUND='175'
+
+# Git stuff
+POWERLEVEL9K_VCS_CLEAN_BACKGROUND='000'
+POWERLEVEL9K_VCS_CLEAN_FOREGROUND='078'
+POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='000'
+POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='228'
+POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='000'
+POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='204'
+
+# Uncomment the following line to disable auto-setting terminal title.
+DISABLE_AUTO_TITLE="true"
+
+# Plugins
+plugins=(
+	brew catimg colorize cp emoji emoji-clock git gitfast lwd  node npm osx vscode web-search z
+)
+
+source $ZSH/oh-my-zsh.sh
+
+# precmd is called just before the prompt is printed
+# I just use it to add a space between commands
+function precmd() {
+  echo ""
+}
+
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='code'
+fi
+
+# ssh
+export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+# Custom aliases are set in ~/.oh-my-zsh/custom/myaliases.zsh
+```
