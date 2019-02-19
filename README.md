@@ -1,7 +1,7 @@
 # I really dig Oh My Zsh
-The combination of z.sh for quick and easy directory changes and pretty visuals that let you know what directory and branch you are on is tops. I'm a goddamn spacey airhead so this type of thing makes CLI things much more bearable.
+The combination of z.sh for quick and easy directory changes and pretty visuals that let you know what directory and branch you are on is tops. I'm a spacey airhead so this type of thing makes CLI things much more bearable. Overall my needs are pretty basic so I like to keep things clean and simple.
 
-This is a repo of my `~/.oh-my-zsh/custom` directory, I'm always tinkering with.
+This is a repo of my `~/.oh-my-zsh/custom` directory. I'm putting it up here along side some notes so setting things up on a new machine will be easy.
 
 ![Screenshot of my terminal](/img/omzscreen.png?raw=true)
 
@@ -11,9 +11,9 @@ This is a repo of my `~/.oh-my-zsh/custom` directory, I'm always tinkering with.
 
 `sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
 
-**Clone this repo into your `~/.oh-my-zsh/custom` folder**
+**Pull this repo into your `~/.oh-my-zsh/custom` folder**
 
-`git clone https://github.com/mikowl/ohmyzsh-custom.git ~/.oh-my-zsh/custom`
+`cd ~/.oh-my-zsh/custom && git pull https://github.com/mikowl/ohmyzsh-custom.git`
 
 **Configure your ~/.zshrc file**
 
@@ -48,11 +48,21 @@ This font improves the symbols that are displayed in the terminal, particularly 
 
 Aliases that I need that aren't included in plug-ins are put into `custom/myaliases.zsh`.
 
+### Cat
+
+![Screenshot of pygmentized cat](/img/omzcat.png?raw=true)
+
+I like have a colored cat command, particularly this [material style pygments theme](https://github.com/horosgrisa/pygments-style-material).
+
+**To Install**
+
+`pip install pygments` and `pip install pygments-style-material`
+
 ## .zshrc config
 
 ```
-#Mikowl's .zshrc config v1.6
-printf  '%s%*s%s' "$(tput setaf 175)" $(tput cols) "🗓  $(date '+%A, %B, %d') "
+#Mikowl's .zshrc config v1.6b
+printf  '%s%*s%s' "$(tput setaf 175)" $(tput cols) "🗓  $(date '+%A, %B, %d')"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/"$(whoami)"/.oh-my-zsh"
@@ -101,7 +111,7 @@ DISABLE_AUTO_TITLE="true"
 
 # Plugins
 plugins=(
-	brew catimg colorize cp emoji emoji-clock git gitfast lwd  node npm osx vscode web-search z
+  brew catimg colorize cp emoji emoji-clock git gitfast lwd node npm osx vscode web-search z
 )
 
 source $ZSH/oh-my-zsh.sh

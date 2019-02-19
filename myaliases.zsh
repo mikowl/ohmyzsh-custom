@@ -17,10 +17,12 @@ alias p="cd ~/Projects"
 alias omz="cd ~/.oh-my-zsh"
 alias omzc="cd ~/.oh-my-zsh/custom"
 # Quick edit to my aliases and zshrc config
-alias zshrc=$EDITOR "~/.zshrc"
-alias aliases=$EDITOR "~/.oh-my-zsh/custom/myaliases.zsh"
+alias zshrc="${=EDITOR} ~/.zshrc"
+alias aliases="${=EDITOR} ~/.oh-my-zsh/custom/myaliases.zsh"
 
-# Git 
+# Git
+# Other git commands are available from the git plugin 
+# See ~/.oh-my-zsh/plugins/git/git.plugin.zsh for the full list
 alias gs='git status'
 
 # Spotify
@@ -54,7 +56,7 @@ alias tdo="todo.sh do"
 alias tpri="todo.sh pri"
 
 # Colored up cat
-# Install Pygments first - "sudo easy_install Pygments"
+# pip3 install pygments (you'll need python installed, I brew install python and python 3)
 # and pigments material theme: https://github.com/horosgrisa/pygments-style-material
 alias cat='pygmentize -O style=material -f console256 -g'
 
