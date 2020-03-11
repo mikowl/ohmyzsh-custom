@@ -32,11 +32,14 @@ alias aliases="vim ~/.oh-my-zsh/custom/myaliases.zsh"
 alias galiases="ccat ~/.oh-my-zsh/plugins/git/git.plugin.zsh | grep alias"
 
 #Misc
-alias scrum="chrome https://nordicnaturals.zoom.us/j/5519745621"
 alias kara="vim ~/.config/karabiner/karabiner.json"
 alias hosts="sudo vim /etc/hosts"
+alias zshrc="${=EDITOR} ~/.zshrc"
+alias aliases="${=EDITOR} ~/.oh-my-zsh/custom/myaliases.zsh"
 
-# Git 
+# Git
+# Other git commands are available from the git plugin 
+# See ~/.oh-my-zsh/plugins/git/git.plugin.zsh for the full list
 alias gs='git status'
 alias gl="git log --pretty=format:'%C(magenta)%h %C(cyan)%ad %C(yellow)%an%Cgreen%d %Creset%s' --date=short -n 25"
 alias gl1="git log -1 --pretty=format:'%C(magenta)%B' | lolcat -F 0.017"
@@ -136,7 +139,7 @@ alias em="open /usr/local/Cellar/emacs-plus/26.2/Emacs.app"
 alias pygmentize='pygmentize -O style=dracula -f console256 -g'
 
 # Colored up cat
-# Install Pygments first - "sudo easy_install Pygments"
+# pip3 install pygments (you'll need python installed, I brew install python and python 3)
 # and pigments material theme: https://github.com/horosgrisa/pygments-style-material
 # style located at /usr/local/lib/python2.7/site-packages/Pygments-2.3.1-py2.7.egg/pygments/styles
 alias ccat='pygmentize -O style=dracula -f console256 -g'
