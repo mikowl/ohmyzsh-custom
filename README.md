@@ -11,9 +11,11 @@ This is a repo of my `~/.oh-my-zsh/custom` directory, I'm always tinkering with.
 
 `sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
 
-**Clone this repo into your `~/.oh-my-zsh/custom` folder**
+**Pull this repo into your `~/.oh-my-zsh/custom` folder**
 
-`git clone https://github.com/mikowl/ohmyzsh-custom.git ~/.oh-my-zsh/custom`
+`cd ~/.oh-my-zsh/custom`
+
+`git pull https://github.com/mikowl/ohmyzsh-custom.git`
 
 **Configure your ~/.zshrc file**
 

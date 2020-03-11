@@ -1,62 +1,151 @@
 # My aliases
 
-# Easier navigation: .., ..., ...., ....., ~ and -
+# Easier navigation
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
-alias ~="cd ~" # `cd` is probably faster to type though
-alias -- -="cd -"
+
+# ls stuff, most are set in lib/directories.zsh
+alias ls='gls --color'
+alias l='lsd -l'
+alias la='lsd -la'
+alias lt='ls -ltFho'   #long list,sorted by date,show type,human readable
+alias ldot='ls -ld .*' #list dot files
+
+# Copy current directory path to keyboard
+alias cwd="pwd | pbcopy"
 
 # CD Shortcuts
 alias d="cd ~/Documents/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
+alias docs="cd ~/Documents"
 alias sites="cd ~/Sites"
-alias p="cd ~/Projects"
+alias notes="cd ~/Documents/Notes"
 alias omz="cd ~/.oh-my-zsh"
 alias omzc="cd ~/.oh-my-zsh/custom"
+
 # Quick edit to my aliases and zshrc config
-alias zshrc=$EDITOR "~/.zshrc"
-alias aliases=$EDITOR "~/.oh-my-zsh/custom/myaliases.zsh"
+alias zshrc="vim ~/.zshrc"
+alias aliases="vim ~/.oh-my-zsh/custom/myaliases.zsh"
+alias galiases="ccat ~/.oh-my-zsh/plugins/git/git.plugin.zsh | grep alias"
+
+#Misc
+alias scrum="chrome https://nordicnaturals.zoom.us/j/5519745621"
+alias kara="vim ~/.config/karabiner/karabiner.json"
+alias hosts="sudo vim /etc/hosts"
 
 # Git 
 alias gs='git status'
+alias gl="git log --pretty=format:'%C(magenta)%h %C(cyan)%ad %C(yellow)%an%Cgreen%d %Creset%s' --date=short -n 25"
+alias gl1="git log -1 --pretty=format:'%C(magenta)%B' | lolcat -F 0.017"
+alias gl2="git log -2 --pretty=format:'%C(magenta)%B' | lolcat -F 0.017"
+alias gl3="git log -3 --pretty=format:'%C(magenta)%B' | lolcat -F 0.017"
+alias gdf='git --no-pager diff dev... --name-only | lolcat -F 0.015'
+# Opens changed files from last
+alias fix="git diff --name-only | uniq | xargs code-insiders"
+alias fix2="git diff --name-only | uniq | grep -v '\.jsx\.snap' | grep -v '\.lock' | xargs code-insiders"
+
+# Some docker and composer things
+alias flushredis='docker exec nordicnaturals_redis /bin/bash -c "redis-cli flushall"'
+alias nnbash='echo "🐳 🐳  docker exec -it nordicnaturals_web bash 🐳 🐳" && docker exec -it nordicnaturals_web bash'
+alias flushmagento='php bin/magento cache:flush'
+alias deploystatic='php bin/magento setup:static-content:deploy --area=frontend -f'
+
+# Docker Process Status
+alias dps='echo "🐳 🐳 🐳 🐳" && docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Names}}"'
+alias dres='docker restart nordicnaturals_web'
+
+# docker-compose and composer
+alias dcup='docker-compose up -d'
+alias dc='docker-compose'
+alias cu='composer update --prefer-source'
+alias cui='composer update --prefer-source --ignore-platform-reqs'
+
+# Dockergento
+alias dg='dockergento'
+alias dgs='dockergento start'
+alias dgw='dockergento watch vendor/nordicnaturals | lolcat -F 0.015'
+alias dgc='dockergento magento cache:clean'
+alias dgf='dockergento magento cache:flush'
+alias dgd='dockergento magento setup:static-content:deploy --area=frontend -f'
+alias dgu='dockergento magento setup:upgrade'
+alias dgir='dockergento magento indexer:reindex'
+alias dgcu='dockergento composer update --prefer-source'
+alias dgcuir='dockergento composer update --prefer-source --ignore-platform-reqs'
+alias dgmh='dockergento mirror-host app dev generated pub var'
+alias dgbash='dockergento bash'
+alias daliases="ccat ~/.oh-my-zsh/custom/myaliases.zsh | grep dockergento"
+
+#alias flushstatic='rm -R pub/static/frontend/NordicNaturals && rm -R var/view_preprocessed'
+alias fs='echo "Removing ./generated" && rm -rf ./generated && echo "Removing ./pub/static" && rm -rf ./pub/static'
+
+alias scratch='vim ~/Documents/Notes/scratch.md'
+# Make nested directories and file
+mktouch() { 
+  mkdir -p $(dirname $1) && touch $1; 
+}
+
+# Encode an svg to base64 and copy to clipboard, ex: b64 path/to/image.svg
+function b64() {
+  echo "data:image/svg+xml;base64," && openssl base64 < $1 | tr -d '\n' | cat $1 | openssl base64 | tr -d '\n' | pbcopy
+}
+
+function whatschanged() {
+  git --no-pager diff $1... --name-only | lolcat -F 0.015
+}
+
+# Search for a word in a file, ex) peep searchterm file.php
+function peep() {
+  grep -B 1 -A 5 $1 $2 | pygmentize -l bash -O style=dracula
+}
+function srch() {
+  grep -B 5 -A 5 $1 $2
+}
+
+function serve() {
+  if [ $# -eq 0 ]
+    then
+      python -m SimpleHTTPServer 8000
+  fi
+  python -m SimpleHTTPServer $1
+}
+
+alias ghd='open /Applications/GitHub\ Desktop.app'
 
 # Spotify
 # it's occasionally convenient to control spotify in the terminal ¯\_(ツ)_/¯
 alias sptf="spotify"
-alias sptfs="spotify status"
+alias sptfs="spotify status | lolcat"
 alias sptfp="spotify play"
 alias sptfpa="spotify pause"
 alias sptfn="spotify next"
 alias sptfpr="spotify prev"
 alias sptfv="spotify vol"
-alias sptvvu="spotify vol up"
-alias sptvvd="spotify vol down"
+alias sptfvu="spotify vol up"
+alias sptfvd="spotify vol down"
 
-# Some docker and composer things
-alias dcup='docker-compose up -d'
-alias dc='docker-compose'
-alias cu='composer update --prefer-source --ignore-platform-reqs'
 
-# todo.txt-cli https://github.com/todotxt/todo.txt-cli
-if [ -z "$TODOTXT_DEFAULT_ACTION" ]; then
-  # typing 't' by itself will list current todos
-  export TODOTXT_DEFAULT_ACTION=ls
-fi
+#alias todo="awk '(p+=/^\* Notes/)>1{exit} p' ~/Documents/Notes/work-notes.org | pygmentize -l lua -O style=material -f console256 -g"
+#alias td="awk '(p+=/^\* Notes/)>1{exit} p' ~/Documents/Notes/work-notes.org | highlight --syntax javascript --out-format xterm256 -l --force -s moria --no-trailing-nl"
+alias todo="echo '🦄 org-mode notes C-x n s' && sleep 2 && emacs -nw ~/Documents/Notes/work-notes.org"
+alias em="open /usr/local/Cellar/emacs-plus/26.2/Emacs.app"
 
-alias t='todo.sh'
-alias tls="todo.sh ls"
-alias ta="todo.sh a"
-alias trm="todo.sh rm"
-alias tdo="todo.sh do"
-alias tpri="todo.sh pri"
+#set default pygmentize style
+alias pygmentize='pygmentize -O style=dracula -f console256 -g'
 
 # Colored up cat
 # Install Pygments first - "sudo easy_install Pygments"
 # and pigments material theme: https://github.com/horosgrisa/pygments-style-material
-alias cat='pygmentize -O style=material -f console256 -g'
+# style located at /usr/local/lib/python2.7/site-packages/Pygments-2.3.1-py2.7.egg/pygments/styles
+alias ccat='pygmentize -O style=dracula -f console256 -g'
+
+# Pipe Highlight to less
+export LESSOPEN="| $(which highlight) %s --out-format xterm256 -l --force -s moria --no-trailing-nl"
+export LESS=" -R"
+alias less='less -m -N -g -i -J --line-numbers --underline-special'
+alias more='less'
 
 # Always enable colored `grep` output
 # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
@@ -88,6 +177,7 @@ alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'
 
 # Flush Directory Service cache
 alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
+alias flushit="sudo killall -HUP mDNSResponder; sleep 2;"
 
 # Clean up LaunchServices to remove duplicates in the “Open With” menu
 alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
@@ -114,31 +204,21 @@ alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
 # Finally, clear download history from quarantine. https://mths.be/bum
 alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl; sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'"
 
-# Show/hide hidden files in Finder
-alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-
 # Hide/show all desktop icons (useful when presenting)
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
 # URL-encode strings
-alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+#alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+alias urldecode='python -c "import sys, urllib as ul; \
+    print ul.unquote_plus(sys.argv[1])"'
+
+alias urlencode='python -c "import sys, urllib as ul; \
+    print ul.quote_plus(sys.argv[1])"'
 
 # Merge PDF files
 # Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
 alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'
-
-# Disable Spotlight
-alias spotoff="sudo mdutil -a -i off"
-# Enable Spotlight
-alias spoton="sudo mdutil -a -i on"
-
-# PlistBuddy alias, because sometimes `defaults` just doesn’t cut it
-alias plistbuddy="/usr/libexec/PlistBuddy"
-
-# Airport CLI alias
-alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport'
 
 # Intuitive map function
 # For example, to list all directories that contain a certain file:
@@ -161,7 +241,8 @@ alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v exten
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 # Reload the shell (i.e. invoke as a login shell)
-alias reload="exec ${SHELL} -l"
+alias reload="exec ${SHELL} -l && source ~/.zshrc"
 
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
+
